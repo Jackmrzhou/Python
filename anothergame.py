@@ -1,6 +1,8 @@
 # 有很多能大量减少代码量的地方为什么我不优化？
 # 因为我写了几处才意识到-。-!!  就懒得改了
 import random
+
+
 class livingthing(object):
     def __init__(self, name, HP, MP, backpack, defend, attack):
         self.name = name
@@ -227,7 +229,7 @@ class livingthing(object):
                     print('The dragon use %s!' % Dragon[index].skill)
                     Dragon[index].skill_damage()
                 else:
-                	Hero.HP -= Dragon[index].attack * Hero.defend // 100
+                    Hero.HP -= Dragon[index].attack * Hero.defend // 100
                 Dragon[index].HP -= Hero.attack * Dragon[index].defend // 100
                 Hero.judge_HP()
                 Dragon[index].judge_HP()
@@ -322,6 +324,9 @@ box = ['normal_sword', 'normal_armor', 'normal_helmet', 'normal_handguard', 'nor
                                                                                             'HP_small_pill',
        'HP_large_pill', 'MP_small_pill', 'MP_large_pill', 'reborn_pill']
 floors = floors()
+print('You a hero,and you have to get the top of the castle to free to beauty!')
+print('The castle have 20 floors,go ahead,hero!')
+Hero.hero_detail()
 
 while floors.floor != 20:
     print('This is floor %s' % floors.floor)
@@ -367,13 +372,13 @@ while floors.floor != 20:
     print('There 5 rooms before you.Please choose one!')
 
     # 其实room根本就不是你选的（滑稽）
-    #但是我还是要判断用户有没有合法输入  ！——。——！
+    # 但是我还是要判断用户有没有合法输入  ！——。——！
     while True:
-    	nonsense = int(input())
-    	if nonsense >= 1 and nonsense <= 5:
-    		break
-    	else:
-    		print('You input a wrong number!Input again!')
+        nonsense = int(input())
+        if nonsense >= 1 and nonsense <= 5:
+            break
+        else:
+            print('You input a wrong number!Input again!')
 
     # 进房间
     if room == 'nothing':
@@ -421,7 +426,7 @@ while floors.floor != 20:
                     floors.floor_down()
                     print('You meet a portal and you get 2 floor down!')
                 print('Input anything to go to next floor!')
-       			nonsense = input()
+                nonsense = input()
 
             if box_stuff in normal_weapon:
                 print('You find an %s' % box_stuff)
@@ -434,13 +439,13 @@ while floors.floor != 20:
                         break
                 if choice_weapon == 1:
                     Hero.equip_weapon(box_stuff)
-               	print('Input anything to go to next floor!')
-        		nonsense = input()
-            
+                print('Input anything to go to next floor!')
+                nonsense = input()
+
             else:
                 Hero.backpack.append(box_stuff)
                 print('Input anything to go to next floor!')
-        		nonsense = input()
+                nonsense = input()
 
     if room == 'monster':
         choose_monster = random.randint(0, 3)
