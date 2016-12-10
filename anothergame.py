@@ -147,21 +147,26 @@ class livingthing(object):
                     break
             if choice_fight == 1:
                 round_fight += 1
-                print('Use the stuff in order!')
-                while True:
-                    choose_stuff = int(input())
-                    if choose_stuff == '*':
-                        break
-                    elif Hero.backpack[choose_stuff] == 'reborn_pill':
-                        print('You input a wrong number or you can not use that stuff!')
-                        print('Input again or input * to not use stuff!')
-                    elif choose_stuff > len(Hero.backpack):
-                        print('You input a wrong number or you can not use that stuff!')
-                        print('Input again or input * to not use stuff!')
-                    else:
-                        break
-                if choose_stuff != '*':
-                    Hero.use_stuff(choose_stuff)
+                if len(Hero.backpack) != 0:
+                    print('Use the stuff in order!')
+                    print(Hero.backpack)
+                    while True:
+                        choose_stuff = input()
+                        if choose_stuff == '*':
+                            break
+                        elif int(choose_stuff) > len(Hero.backpack):
+                            print('You input a wrong number or you can not use that stuff!')
+                            print('Input again or input * to not use backpack!')
+                        elif Hero.backpack[int(choose_stuff)-1] == 'reborn_pill':
+                            print('You input a wrong number or you can not use that stuff!')
+                            print('Input again or input * to not use backpack!')
+                        else:
+                            break
+                    if choose_stuff != '*':  
+                        Hero.use_stuff(int(choose_stuff))
+                else:
+                    print('The backpack do not have anything!')
+                    round_fight -= 1
             if choice_fight == 2:
                 round_fight += 1
                 Hero.HP -= The_monster.attack * Hero.defend // 100
@@ -192,7 +197,7 @@ class livingthing(object):
         print('Jack VS %s!' % Dragon[index].name)
         round_fight = 1
         while True:
-            print(round_fight)
+            print('round:%s' % round_fight)
             Hero.hero_detail()
             Dragon[index].dragons_detail()
             print('You can use pills in your backpack,or attck the dragon!')
@@ -205,21 +210,26 @@ class livingthing(object):
                     break
             if choice_fight == 1:
                 round_fight += 1
-                print('Use the stuff in order!')
-                while True:
-                    choose_stuff = int(input())
-                    if choose_stuff == '*':
-                        break
-                    elif Hero.backpack[choose_stuff] == 'reborn_pill':
-                        print('You input a wrong number or you can not use that stuff!')
-                        print('Input again or input * to not use stuff!')
-                    elif choose_stuff > len(Hero.backpack):
-                        print('You input a wrong number or you can not use that stuff!')
-                        print('Input again or input * to not use stuff!')
-                    else:
-                        break
-                if choose_stuff != '*':
-                    Hero.use_stuff(choose_stuff)
+                if len(Hero.backpack) != 0:
+                    print('Use the stuff in order!')
+                    print(Hero.backpack)
+                    while True:
+                        choose_stuff = input()
+                        if choose_stuff == '*':
+                            break
+                        elif int(choose_stuff) > len(Hero.backpack):
+                            print('You input a wrong number or you can not use that stuff!')
+                            print('Input again or input * to not use backpack!')
+                        elif Hero.backpack[int(choose_stuff)-1] == 'reborn_pill':
+                            print('You input a wrong number or you can not use that stuff!')
+                            print('Input again or input * to not use backpack!')
+                        else:
+                            break
+                    if choose_stuff != '*':  
+                        Hero.use_stuff(int(choose_stuff)-1)
+                else:
+                    print('The backpack do not have anything!')
+                    round_fight -= 1
             if choice_fight == 2:
                 round_fight += 1
                 if Dragon[index].MP >= 20:
@@ -317,9 +327,8 @@ rooms = ['monster', 'nothing', 'box', 'trap', 'recover']
 
 normal_weapon = ['normal_sword', 'normal_armor', 'normal_helmet', 'normal_handguard', 'normal_boots']
 
-box = ['normal_sword', 'normal_armor', 'normal_helmet', 'normal_handguard', 'normal_boots', 'portal'
-                                                                                            'HP_small_pill',
-       'HP_large_pill', 'MP_small_pill', 'MP_large_pill', 'reborn_pill']
+box = ['normal_sword', 'normal_armor', 'normal_helmet', 'normal_handguard', 'normal_boots', 'portal',
+        'HP_small_pill','HP_large_pill', 'MP_small_pill', 'MP_large_pill', 'reborn_pill']
 floors = floors()
 print('You a hero,and you have to get the top of the castle to free to beauty!')
 print('The castle have 20 floors,go ahead,hero!')
@@ -363,13 +372,13 @@ while floors.floor != 20:
                 elif int(choose_stuff) > len(Hero.backpack):
                     print('You input a wrong number or you can not use that stuff!')
                     print('Input again or input * to not use backpack!')
-                elif Hero.backpack[int(choose_stuff)] == 'reborn_pill':
+                elif Hero.backpack[int(choose_stuff)-1] == 'reborn_pill':
                     print('You input a wrong number or you can not use that stuff!')
                     print('Input again or input * to not use backpack!')
                 else:
                     break
             if choose_stuff != '*':  
-                Hero.use_stuff(int(choose_stuff))
+                Hero.use_stuff(int(choose_stuff)-1)
         else:
             print('The backpack do not have anything!')
     print('There 5 rooms before you.Please choose one!')
@@ -491,9 +500,9 @@ while floors.floor != 20:
         break
 
     floors.floor_up()
-
-print('You use the key and open the door!')
-print('You see the beauty and release her!')
+if floors.floor == 20:
+    print('You use the key and open the door!')
+    print('You see the beauty and release her!')
 print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
 print('感谢您对本游戏的体验！因为水平问题本游戏一定有不少BUG！（但是我不会去优化的！）')
 print('                                                      Made by Jack_Zhou')
