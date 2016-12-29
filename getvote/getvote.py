@@ -2,9 +2,16 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import time
+import increase
 
 print('Input url!')
-wx_url = input()
+wx_url = judge_url(input())
+latter_dict = {}
+
+def judge_url(wx_url):
+	if 'http://' not in wx_url:
+		return 'http://' + wx_url
+	return wx_url 
 
 def download_code(url):
 	headers = {'User-Agent':'Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1667.0 Safari/537.36'}
@@ -22,11 +29,25 @@ def prase_html(html):
 	getvote = re.findall(instance, str(vote))
 	return getvote
 
-def main():
+def creat():
+	global latter_dict
+#想了很久，想不出除了用全局别的方法了。。
+#喵的全局变量真的是下下策=。=
 	html = download_code(wx_url)
 	r = prase_html(html)
+	now_dict = increase.creat_dict(r)
+	change = {}
+	if latter_dict:
+		change = increase.difference(latter_dict, now_dict)
+	latter_dict = now_dict
+	return change
+
+def main():
+	change = creat()
 	with open('getvote.txt','a') as fp:
-		fp.write(str(r))
+		fp.write('下面表示每隔30秒的是增加的票数')
+		fp.write('\n')
+		fp.write(str(change))
 		fp.write('\n')
 		fp.write('CollectTime:' + time.strftime("%H:%M:%S"))
 		fp.write('\n')
@@ -35,4 +56,7 @@ def main():
 if __name__ == '__main__':
 	while True:
 		time.sleep(30)
-		main()
+		try:
+			main()
+		except Exception as e:
+			print('Write Failed!')
