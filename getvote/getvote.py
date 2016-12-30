@@ -3,7 +3,9 @@ from bs4 import BeautifulSoup
 import re
 import time
 import increase
-
+#嗯这个写的太繁琐。
+#我已经明白减少引入increase的方法
+#但是我不打算改了（还不如重写一个）
 print('Input url!')
 wx_url = judge_url(input())
 latter_dict = {}
